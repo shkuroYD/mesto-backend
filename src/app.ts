@@ -1,14 +1,12 @@
-import http from "http";
-import { test } from "./test";
+import http from 'http';
 
-const server = http
+http
   .createServer((req, res) => {
-    console.log("Test", test);
-    res.writeHead(200, { "Content-Type": "application/json" });
+    res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(
       JSON.stringify({
-        data: "test",
-      })
+        data: 'test',
+      }),
     );
   })
   .listen(3000);

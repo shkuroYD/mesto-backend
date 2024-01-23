@@ -1,1 +1,0 @@
-export const test = '12312123asfsdasdasdf123asadasdsd3'
