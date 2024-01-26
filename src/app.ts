@@ -1,12 +1,9 @@
-import http from 'http';
+import express from 'express';
 
-http
-  .createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(
-      JSON.stringify({
-        data: 'test',
-      }),
-    );
-  })
-  .listen(3000);
+const { PORT = 3000 } = process.env;
+
+const app = express();
+
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+});
