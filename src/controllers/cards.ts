@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
+import Card from '../models/card';
 
-export const getCards = (req: Request, res: Response) => {
-  console.log('GET запрос /cards', req, res);
-};
+export const getCards = (req: Request, res: Response) => Card.find({}).then((cards) => res.send({ data: cards })).catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 
 export const createCard = (req: Request, res: Response) => {
   console.log('POST запрос /cards', req, res);
