@@ -14,9 +14,24 @@ export const createUser = (req: Request, res: Response) => {
 };
 
 export const updateUser = (req: Request, res: Response) => {
-  console.log('PATCH запрос /users/me', req, res);
+  const { name, about, avatar } = req.body;
+  // @ts-ignore
+  return User.findByIdAndUpdate(req.user._id, { name, about, avatar }, {
+    new: true,
+    runValidators: true,
+    upsert: true,
+  })
+    .then((user) => res.send({ data: user }))
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
 
 export const updateUserAvatar = (req: Request, res: Response) => {
-  console.log('PATCH запрос /users/me/avatar', req, res);
+  const { avatar } = req.body;
+  // @ts-ignore
+  return User.findByIdAndUpdate(req.user._id, { avatar }, {
+    new: true,
+    runValidators: true,
+  })
+    .then((user) => res.send({ data: user }))
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
