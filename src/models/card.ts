@@ -1,4 +1,5 @@
 import mongoose, { ObjectId } from 'mongoose';
+import emailRegexp from '../helpers/email-regexp';
 
 interface ICard {
   name: string,
@@ -18,6 +19,12 @@ const cardSchema = new mongoose.Schema<ICard>({
   link: {
     type: String,
     required: true,
+    validate: {
+      validator(v: string) {
+        return emailRegexp.test(v);
+      },
+      message: (props) => `${props.value} - не валидная ссылка`,
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

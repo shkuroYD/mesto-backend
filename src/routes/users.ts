@@ -1,17 +1,19 @@
 import { Router } from 'express';
 import {
-  getUsers, createUser, getUser, updateUser, updateUserAvatar,
+  getUsers, getUser, updateUser, updateUserAvatar,
 } from '../controllers/users';
+import { getUserValidator, updateUserValidator, updateUserAvatarValidator } from '../validators/user';
+
+const { celebrate } = require('celebrate');
 
 const router = Router();
 
 router.get('/', getUsers);
-router.post('/', createUser);
 
-router.get('/:id', getUser);
+router.get('/:id', celebrate(getUserValidator), getUser);
 
-router.patch('/me', updateUser);
+router.patch('/me', celebrate(updateUserValidator), updateUser);
 
-router.patch('/me/avatar', updateUserAvatar);
+router.patch('/me/avatar', celebrate(updateUserAvatarValidator), updateUserAvatar);
 
 export default router;
